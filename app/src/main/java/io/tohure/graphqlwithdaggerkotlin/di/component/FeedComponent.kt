@@ -13,9 +13,7 @@ import javax.inject.Singleton
 
 @PerActivity
 @Singleton
-@Component(modules = [
-    FeedModule::class,
-    GraphModule::class])
+@Component(modules = [(FeedModule::class), (GraphModule::class)])
 interface FeedComponent {
     fun inject(activity: FeedActivity)
 }

@@ -8,6 +8,8 @@ import android.widget.Toast
 import dagger.Lazy
 import io.tohure.graphqlwithdaggerkotlin.FeedQuery
 import io.tohure.graphqlwithdaggerkotlin.R
+import io.tohure.graphqlwithdaggerkotlin.di.component.DaggerFeedComponent
+import io.tohure.graphqlwithdaggerkotlin.di.component.FeedComponent
 import io.tohure.graphqlwithdaggerkotlin.di.module.FeedModule
 import io.tohure.graphqlwithdaggerkotlin.di.module.GraphModule
 import kotlinx.android.synthetic.main.activity_feed.*
@@ -15,9 +17,15 @@ import javax.inject.Inject
 
 class FeedActivity : AppCompatActivity(), FeedContract.View {
 
-    @Inject
-    private lateinit var presenter: Lazy<FeedPresenter>
+    val component: FeedComponent by lazy {
+        DaggerFeedComponent.builder()
+                .feedModule(FeedModule(this))
+                .graphModule(GraphModule())
+                .build()
+    }
 
+    @Inject
+    lateinit var presenter: Lazy<FeedPresenter>
     private lateinit var feedAdapter: FeedAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +35,7 @@ class FeedActivity : AppCompatActivity(), FeedContract.View {
     }
 
     private fun init() {
-        setInyection()
+        component.inject(this)
 
         //init recycler
         rvFeeds.setHasFixedSize(true)
@@ -35,14 +43,6 @@ class FeedActivity : AppCompatActivity(), FeedContract.View {
         rvFeeds.adapter = feedAdapter
 
         presenter.get().getFeed(10)
-    }
-
-    private fun setInyection() {
-        DaggerFeedComponent.builder()
-                .feedModule(FeedModule(this))
-                .graphModule(GraphModule())
-                .build()
-                .inject(this)
     }
 
     override fun showLoading() {

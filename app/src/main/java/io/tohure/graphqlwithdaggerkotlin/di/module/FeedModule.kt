@@ -16,26 +16,18 @@ import io.tohure.graphqlwithdaggerkotlin.ui.FeedPresenter
 class FeedModule(private val view: FeedContract.View) {
 
     @Provides
-    internal fun provideFeedView(): FeedContract.View {
-        return view
-    }
+    fun provideFeedView(): FeedContract.View = view
 
     @Provides
-    internal fun provideMainHandler(): Handler {
-        return Handler(Looper.getMainLooper())
-    }
+    fun provideMainHandler(): Handler = Handler(Looper.getMainLooper())
 
     @Provides
-    internal fun provideFeedInteractor(
-            apolloClient: ApolloClient,
-            handler: Handler): FeedInteractor {
-        return FeedInteractor(apolloClient, handler)
-    }
+    fun provideFeedInteractor(apolloClient: ApolloClient, handler: Handler): FeedInteractor =
+            FeedInteractor(apolloClient, handler)
+
 
     @Provides
-    internal fun provideFeedPresenter(
-            view: FeedContract.View,
-            interactor: FeedInteractor): FeedPresenter {
-        return FeedPresenter(view, interactor)
-    }
+    fun provideFeedPresenter(view: FeedContract.View, interactor: FeedInteractor): FeedPresenter =
+            FeedPresenter(view, interactor)
+
 }

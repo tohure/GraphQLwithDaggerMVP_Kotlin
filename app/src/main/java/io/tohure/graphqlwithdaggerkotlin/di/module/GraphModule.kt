@@ -18,31 +18,28 @@ class GraphModule {
 
     @Provides
     @Singleton
-    internal fun provideInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor()
-                .setLevel(if (BuildConfig.DEBUG)
-                    HttpLoggingInterceptor.Level.BODY
-                else
-                    HttpLoggingInterceptor.Level.NONE)
-    }
+    fun provideInterceptor(): HttpLoggingInterceptor =
+            HttpLoggingInterceptor()
+                    .setLevel(if (BuildConfig.DEBUG)
+                        HttpLoggingInterceptor.Level.BODY
+                    else
+                        HttpLoggingInterceptor.Level.NONE)
 
     @Provides
     @Singleton
-    internal fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
-        return OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
-                .writeTimeout(10, TimeUnit.SECONDS)
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
-                .build()
-    }
+    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+            OkHttpClient.Builder()
+                    .addInterceptor(httpLoggingInterceptor)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .connectTimeout(10, TimeUnit.SECONDS)
+                    .readTimeout(10, TimeUnit.SECONDS)
+                    .build()
 
     @Provides
     @Singleton
-    internal fun provideApolloClient(okHttpClient: OkHttpClient): ApolloClient {
-        return ApolloClient.builder()
-                .serverUrl(BuildConfig.BASE_URL)
-                .okHttpClient(okHttpClient)
-                .build()
-    }
+    fun provideApolloClient(okHttpClient: OkHttpClient): ApolloClient =
+            ApolloClient.builder()
+                    .serverUrl(BuildConfig.BASE_URL)
+                    .okHttpClient(okHttpClient)
+                    .build()
 }
