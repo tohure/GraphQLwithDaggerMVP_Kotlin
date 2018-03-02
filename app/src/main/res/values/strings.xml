@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GraphQL with Dagger</string>
+    <string name="not_repository">No repository</string>
+</resources>
