@@ -7,19 +7,18 @@ import android.view.ViewGroup
 import io.tohure.graphqlwithdaggerkotlin.FeedQuery
 import io.tohure.graphqlwithdaggerkotlin.R
 import kotlinx.android.synthetic.main.item_feed.view.*
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by tohure on 2/03/18.
  */
 
-class FeedAdapter internal constructor() :
-        RecyclerView.Adapter<FeedAdapter.FeedItemViewHolder>() {
+class FeedAdapter internal constructor() : RecyclerView.Adapter<FeedAdapter.FeedItemViewHolder>() {
 
     private val feedEntries: MutableList<FeedQuery.FeedEntry>
 
     init {
-        this.feedEntries = ArrayList<FeedQuery.FeedEntry>()
+        this.feedEntries = ArrayList()
     }
 
     internal fun addData(feedEntries: List<FeedQuery.FeedEntry>) {
@@ -34,27 +33,24 @@ class FeedAdapter internal constructor() :
         return FeedItemViewHolder(view)
     }
 
+    override fun onBindViewHolder(holder: FeedItemViewHolder, position: Int) =
+            with(holder.itemView) {
 
-    override fun onBindViewHolder(holder: FeedItemViewHolder, position: Int) = with(holder.itemView) {
+                if (feedEntries[position].postedBy() != null) {
+                    lblItem1.text = String.format("@%s", feedEntries[position].postedBy()!!.login())
+                } else {
+                    lblItem1.text = feedEntries[position].id().toString()
+                }
 
-        if (feedEntries[position].postedBy() != null) {
-            lblItem1.text = String.format("@%s", feedEntries[position].postedBy()!!.login())
-        } else {
-            lblItem1.text = feedEntries[position].id().toString()
-        }
+                if (feedEntries[position].repository() != null) {
+                    lblItem2.text = feedEntries[position]
+                            .repository()?.fragments()?.repositoryFragment()?.full_name()
+                } else {
+                    lblItem2.text = context.getString(R.string.not_repository)
+                }
+            }
 
-        if (feedEntries[position].repository() != null) {
-            lblItem2.text = feedEntries[position]
-                    .repository()?.fragments()?.repositoryFragment()?.full_name()
-        } else {
-            lblItem2.text = context.getString(R.string.not_repository)
-        }
-    }
-
-
-    override fun getItemCount(): Int {
-        return feedEntries.size
-    }
+    override fun getItemCount(): Int = feedEntries.size
 
     class FeedItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
 

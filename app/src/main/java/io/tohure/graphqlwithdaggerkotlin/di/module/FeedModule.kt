@@ -25,7 +25,6 @@ class FeedModule(private val view: FeedContract.View) {
     fun provideFeedInteractor(apolloClient: ApolloClient, handler: Handler): FeedInteractor =
             FeedInteractor(apolloClient, handler)
 
-
     @Provides
     fun provideFeedPresenter(view: FeedContract.View, interactor: FeedInteractor): FeedPresenter =
             FeedPresenter(view, interactor)

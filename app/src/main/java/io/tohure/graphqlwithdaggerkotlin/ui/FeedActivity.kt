@@ -1,9 +1,8 @@
 package io.tohure.graphqlwithdaggerkotlin.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.Toast
 import dagger.Lazy
 import io.tohure.graphqlwithdaggerkotlin.FeedQuery
@@ -53,13 +52,15 @@ class FeedActivity : AppCompatActivity(), FeedContract.View {
         progresBar.visibility = View.GONE
     }
 
-    override fun showError(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
-    }
+    override fun showError(error: String) =
+            Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
 
     override fun showResult(feedEntries: List<FeedQuery.FeedEntry>) {
         //With Handler way
         feedAdapter.addData(feedEntries)
+
+        //Without Handler way
+        //this@FeedActivity.runOnUiThread { feedAdapter.addData(feedEntries) }
     }
 
     override fun onDestroy() {

@@ -1,10 +1,10 @@
 package io.tohure.graphqlwithdaggerkotlin.di.component
 
 import dagger.Component
-import io.tohure.graphqlwithdaggerkotlin.ui.FeedActivity
 import io.tohure.graphqlwithdaggerkotlin.di.anotation.PerActivity
 import io.tohure.graphqlwithdaggerkotlin.di.module.FeedModule
 import io.tohure.graphqlwithdaggerkotlin.di.module.GraphModule
+import io.tohure.graphqlwithdaggerkotlin.ui.FeedActivity
 import javax.inject.Singleton
 
 /**
