@@ -20,10 +20,11 @@ class GraphModule {
     @Singleton
     fun provideInterceptor(): HttpLoggingInterceptor =
             HttpLoggingInterceptor()
-                    .setLevel(if (BuildConfig.DEBUG)
-                        HttpLoggingInterceptor.Level.BODY
-                    else
-                        HttpLoggingInterceptor.Level.NONE)
+                    .setLevel(
+                            if (BuildConfig.DEBUG)
+                                HttpLoggingInterceptor.Level.BODY
+                            else
+                                HttpLoggingInterceptor.Level.NONE)
 
     @Provides
     @Singleton

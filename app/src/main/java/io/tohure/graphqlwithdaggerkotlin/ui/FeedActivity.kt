@@ -1,27 +1,16 @@
 package io.tohure.graphqlwithdaggerkotlin.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import dagger.Lazy
+import dagger.android.support.DaggerAppCompatActivity
 import io.tohure.graphqlwithdaggerkotlin.FeedQuery
 import io.tohure.graphqlwithdaggerkotlin.R
-import io.tohure.graphqlwithdaggerkotlin.di.component.DaggerFeedComponent
-import io.tohure.graphqlwithdaggerkotlin.di.component.FeedComponent
-import io.tohure.graphqlwithdaggerkotlin.di.module.FeedModule
-import io.tohure.graphqlwithdaggerkotlin.di.module.GraphModule
 import kotlinx.android.synthetic.main.activity_feed.*
 import javax.inject.Inject
 
-class FeedActivity : AppCompatActivity(), FeedContract.View {
-
-    val component: FeedComponent by lazy {
-        DaggerFeedComponent.builder()
-                .feedModule(FeedModule(this))
-                .graphModule(GraphModule())
-                .build()
-    }
+class FeedActivity : DaggerAppCompatActivity(), FeedContract.View {
 
     @Inject
     lateinit var presenter: Lazy<FeedPresenter>
@@ -34,8 +23,6 @@ class FeedActivity : AppCompatActivity(), FeedContract.View {
     }
 
     private fun init() {
-        component.inject(this)
-
         //init recycler
         rvFeeds.setHasFixedSize(true)
         feedAdapter = FeedAdapter()
