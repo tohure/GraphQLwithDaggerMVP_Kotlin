@@ -6,7 +6,7 @@ import io.tohure.graphqlwithdaggerkotlin.ui.FeedActivity
 import io.tohure.graphqlwithdaggerkotlin.ui.FeedActivityModule
 
 @Module
-abstract class ActivityBuilder {
+abstract class ActivityModule {
 
     @ContributesAndroidInjector(modules = [(FeedActivityModule::class)])
     internal abstract fun bindFeedActivity(): FeedActivity
