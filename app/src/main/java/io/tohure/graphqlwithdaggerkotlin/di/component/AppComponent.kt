@@ -6,10 +6,8 @@ import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import dagger.android.support.AndroidSupportInjectionModule
-import io.tohure.graphqlwithdaggerkotlin.app.GraphApplication
 import io.tohure.graphqlwithdaggerkotlin.di.anotation.PerActivity
 import io.tohure.graphqlwithdaggerkotlin.di.module.ActivityBuilder
-import io.tohure.graphqlwithdaggerkotlin.di.module.AppModule
 import io.tohure.graphqlwithdaggerkotlin.di.module.GraphModule
 import javax.inject.Singleton
 
@@ -17,12 +15,9 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     (AndroidSupportInjectionModule::class),
-    (AppModule::class),
     (GraphModule::class),
     (ActivityBuilder::class)])
 interface AppComponent : AndroidInjector<DaggerApplication> {
-
-    fun inject(app: GraphApplication)
 
     override fun inject(instance: DaggerApplication)
 
