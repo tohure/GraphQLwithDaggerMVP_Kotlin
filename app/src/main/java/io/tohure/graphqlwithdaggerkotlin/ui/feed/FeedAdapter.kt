@@ -1,4 +1,4 @@
-package io.tohure.graphqlwithdaggerkotlin.ui
+package io.tohure.graphqlwithdaggerkotlin.ui.feed
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package io.tohure.graphqlwithdaggerkotlin.ui
+package io.tohure.graphqlwithdaggerkotlin.ui.feed
 
 import android.os.Handler
 import com.apollographql.apollo.ApolloCall

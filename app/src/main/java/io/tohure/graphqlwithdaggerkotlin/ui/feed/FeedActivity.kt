@@ -1,4 +1,4 @@
-package io.tohure.graphqlwithdaggerkotlin.ui
+package io.tohure.graphqlwithdaggerkotlin.ui.feed
 
 import android.os.Bundle
 import android.view.View
